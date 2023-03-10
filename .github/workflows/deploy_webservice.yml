@@ -1,27 +1,70 @@
-name: Deploy Webservice
+name: Deploy Website
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Install dependencies
-        run: |
-          python -m venv venv
-          . venv/bin/activate
-          pip install -r requirements.txt
-      - name: Deploy to server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          script: |
-            . venv/bin/activate
-            fab deploy
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build website
+      run: |
+        # insert command to build your website here
+        # for example: npm run build
+
+    # Update and test server 1
+    - name: Put server 1 in maintenance mode
+      run: |
+        # insert command to put server 1 in maintenance mode
+        # for example: sudo ufw deny from any to any port 80 on server1.example.com
+
+    - name: Deploy to server 1
+      uses: appleboy/rsync-action@master
+      with:
+        args: -avz --delete --exclude='.git'
+        src: ./
+        dest: user@server1:/var/www/html/
+
+    - name: Take server 1 out of maintenance mode
+      run: |
+        # insert command to take server 1 out of maintenance mode
+        # for example: sudo ufw allow from any to any port 80 on server1.example.com
+
+    - name: Test server 1
+      run: |
+        response=$(curl -I server1.example.com | head -n 1 | cut -d$' ' -f2)
+        if [[ $response -ne 200 ]]; then
+          echo "Error: Server 1 returned status code $response"
+          exit 1
+        fi
+
+    # Update and test server 2
+    - name: Put server 2 in maintenance mode
+      run: |
+        # insert command to put server 2 in maintenance mode
+        # for example: sudo ufw deny from any to any port 80 on server2.example.com
+
+    - name: Deploy to server 2
+      uses: appleboy/rsync-action@master
+      with:
+        args: -avz --delete --exclude='.git'
+        src: ./
+        dest: user@server2:/var/www/html/
+
+    - name: Take server 2 out of maintenance mode
+      run: |
+        # insert command to take server 2 out of maintenance mode
+        # for example: sudo ufw allow from any to any port 80 on server2.example.com
+
+    - name: Test server 2
+      run: |
+        response=$(curl -I server2.example.com | head -n 1 | cut -d$' ' -f2)
+        if [[ $response -ne 200 ]]; then
+          echo "Error: Server 2 returned status code $response"
+          exit 1
+        fi

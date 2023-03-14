@@ -59,7 +59,7 @@ jobs:
       uses: appleboy/ssh-action@v0.1.8
       with:
         host: 108.142.140.219
-        username: student
+        username: student123
         password: Student12345
         script: |
           sudo ufw deny 80
@@ -81,7 +81,7 @@ jobs:
       uses: appleboy/ssh-action@v0.1.8
       with:
         host: 108.142.140.219
-        username: student
+        username: student123
         password: Student12345
         script: |
           sudo ufw allow 80

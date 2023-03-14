@@ -17,7 +17,7 @@ jobs:
       run: |
         sudo ufw deny 80
         sudo ufw deny 443
-        echo {{github.workspace}}
+        echo ${{github.workspace}}
 
     - name: Deploy to server 1
       uses: appleboy/ssh-action@v0.1.8

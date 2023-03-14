@@ -23,7 +23,7 @@ jobs:
       with:
         args: -avz --delete --exclude='.git'
         src: ./
-        dest: user@server1:/var/www/html/
+        dest: student@20.16.27.115:/var/www/html/
 
     - name: Take server 1 out of maintenance mode
       run: |
@@ -32,7 +32,7 @@ jobs:
 
     - name: Test server 1
       run: |
-        response=$(curl -I server1.example.com | head -n 1 | cut -d$' ' -f2)
+        response=$(curl -I 20.16.27.115 | head -n 1 | cut -d$' ' -f2)
         if [[ $response -ne 200 ]]; then
           echo "Error: Server 1 returned status code $response"
           exit 1

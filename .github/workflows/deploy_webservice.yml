@@ -30,11 +30,11 @@ jobs:
           rm -rf *
           git clone https://${{secrets.PAT}}@github.com/HerrForehead/migration-support-services-code.git
 
-    - name: Take server 1 out of maintenance mode
-      run: |
-        sudo ufw allow 80
-        sudo ufw allow 443
-        sudo ufw status
+    # - name: Take server 1 out of maintenance mode
+    #   run: |
+    #     sudo ufw allow 80
+    #     sudo ufw allow 443
+    #     sudo ufw status
 
     - name: Test server 1
       run: |

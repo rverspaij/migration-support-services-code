@@ -35,11 +35,16 @@ jobs:
           rm -rf *
           git clone https://${{secrets.PAT}}@github.com/HerrForehead/migration-support-services-code.git
 
-    # - name: Take server 1 out of maintenance mode
-    #   run: |
-    #     sudo ufw allow 80
-    #     sudo ufw allow 443
-    #     sudo ufw status
+    - name: Take server 1 out of maintenance mode
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: 52.174.196.148
+        username: student
+        password: student12345!
+        script: |
+          sudo ufw allow 80
+          sudo ufw allow 433
+          sudo ufw status
 
     - name: Test server 1
       run: |
@@ -51,9 +56,15 @@ jobs:
 
     # Update and test server 2
     - name: Put server 2 in maintenance mode
-      run: |
-        sudo ufw deny 80
-        sudo ufw deny 443
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: 108.142.140.219
+        username: student
+        password: Student12345
+        script: |
+          sudo ufw deny 80
+          sudo ufw deny 433
+          sudo ufw status
 
     - name: Deploy to server 2
       uses: appleboy/ssh-action@v0.1.8
@@ -64,12 +75,18 @@ jobs:
         script: |
           cd /var/www/html
           rm -rf *
-          rsync -avz --exclude='.git' ${{ github.workspace }}/ ./ --delete
+          git clone https://${{secrets.PAT}}@github.com/HerrForehead/migration-support-services-code.git
 
     - name: Take server 2 out of maintenance mode
-      run: |
-        sudo ufw allow 80
-        sudo ufw allow 443
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: 108.142.140.219
+        username: student
+        password: Student12345
+        script: |
+          sudo ufw allow 80
+          sudo ufw allow 433
+          sudo ufw status
 
     - name: Test server 2
       run: |

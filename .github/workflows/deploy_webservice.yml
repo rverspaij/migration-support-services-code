@@ -17,6 +17,7 @@ jobs:
       run: |
         sudo ufw deny 80
         sudo ufw deny 443
+        echo {{github.workspace}}
 
     - name: Deploy to server 1
       uses: appleboy/ssh-action@v0.1.8
@@ -24,9 +25,10 @@ jobs:
         host: 52.174.196.148
         username: student
         password: student12345!
-        with:
-        command: |
-        rsync -avz --delete --exclude='.git' "$GITHUB_WORKSPACE/" student@20.16.27.115:/var/www/html/
+        script: |
+          cd /var/www/html
+          rm -rf *
+          rsync -avz --exclude='.git' ${{ github.workspace }}/ ./ --delete
 
     - name: Take server 1 out of maintenance mode
       run: |

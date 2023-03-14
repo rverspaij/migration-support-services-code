@@ -14,10 +14,15 @@ jobs:
 
     # Update and test server 1
     - name: Put server 1 in maintenance mode
-      run: |
-        sudo ufw deny 80
-        sudo ufw deny 443
-        sudo ufw status
+     uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: 52.174.196.148
+        username: student
+        password: student12345!
+        script: |
+          sudo ufw deny 80
+          sudo ufw deny 433
+          sudo ufw status
 
     - name: Deploy to server 1
       uses: appleboy/ssh-action@v0.1.8

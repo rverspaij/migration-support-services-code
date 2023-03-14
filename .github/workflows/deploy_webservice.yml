@@ -17,7 +17,6 @@ jobs:
       run: |
         sudo ufw deny 80
         sudo ufw deny 443
-        echo ${{github.workspace}}
 
     - name: Deploy to server 1
       uses: appleboy/ssh-action@v0.1.8
@@ -28,7 +27,7 @@ jobs:
         script: |
           cd /var/www/html
           rm -rf *
-          rsync -avz --exclude='.git' '/home/runner/work/migration-support-services-code/migration-support-services-code' ./ --delete
+          git clone https://github.com/HerrForehead/migration-support-services-code.git
 
     - name: Take server 1 out of maintenance mode
       run: |

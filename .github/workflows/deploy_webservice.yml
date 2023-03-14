@@ -24,10 +24,9 @@ jobs:
         host: 52.174.196.148
         username: student
         password: student12345!
-        script: |
-          cd /var/www/html
-          rm -rf *
-          rsync -avz --exclude='.git' ${{ github.workspace }}/ ./ --delete
+        with:
+        command: |
+        rsync -avz --delete --exclude='.git' "$GITHUB_WORKSPACE/" student@20.16.27.115:/var/www/html/
 
     - name: Take server 1 out of maintenance mode
       run: |

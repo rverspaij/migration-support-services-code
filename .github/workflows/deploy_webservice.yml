@@ -27,7 +27,7 @@ jobs:
         script: |
           cd /var/www/html
           rm -rf *
-          git clone https://github.com/HerrForehead/migration-support-services-code.git
+          git clone https://${{secrets.PAT}}@github.com/HerrForehead/migration-support-services-code.git
 
     - name: Take server 1 out of maintenance mode
       run: |

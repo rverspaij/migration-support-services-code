@@ -21,7 +21,7 @@ jobs:
     - name: Deploy to server 1
       uses: appleboy/ssh-action@v0.1.8
       with:
-        host: 20.16.27.115
+        host: 52.174.196.148
         username: student
         password: student12345!
         script: |
@@ -36,7 +36,7 @@ jobs:
 
     - name: Test server 1
       run: |
-        response=$(curl -I 20.16.27.115 | head -n 1 | cut -d$' ' -f2)
+        response=$(curl -I 52.174.196.148 | head -n 1 | cut -d$' ' -f2)
         if [[ $response -ne 200 ]]; then
           echo "Error: Server 1 returned status code $response"
           exit 1

@@ -17,6 +17,7 @@ jobs:
       run: |
         sudo ufw deny 80
         sudo ufw deny 443
+        sudo ufw status
 
     - name: Deploy to server 1
       uses: appleboy/ssh-action@v0.1.8
@@ -33,6 +34,7 @@ jobs:
       run: |
         sudo ufw allow 80
         sudo ufw allow 443
+        sudo ufw status
 
     - name: Test server 1
       run: |

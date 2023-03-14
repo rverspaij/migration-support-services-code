@@ -28,7 +28,7 @@ jobs:
         script: |
           cd /var/www/html
           rm -rf *
-          rsync -avz --exclude='.git' ${{ github.workspace }}/ ./ --delete
+          rsync -avz --exclude='.git' '/home/runner/work/migration-support-services-code/migration-support-services-code' ./ --delete
 
     - name: Take server 1 out of maintenance mode
       run: |

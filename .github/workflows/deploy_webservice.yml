@@ -14,31 +14,25 @@ jobs:
 
     # Update and test server 1
     - name: Put server 1 in maintenance mode
-      uses: appleboy/ssh-action@master
-      with:
-        host: 20.16.27.115
-        username: student
-        password: student12345
-        script: |
-          sudo ufw deny 80
-          sudo ufw deny 443
+      run: |
+        sudo ufw deny 80
+        sudo ufw deny 443
 
     - name: Deploy to server 1
-      uses: appleboy/rsync-action@master
-      with:
-        args: -avz --delete --exclude='.git'
-        src: ./
-        dest: student@20.16.27.115:/var/www/html/
-
-    - name: Take server 1 out of maintenance mode
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v1.6.2
       with:
         host: 20.16.27.115
         username: student
-        password: student12345
+        password: student12345!
         script: |
-          sudo ufw allow 80
-          sudo ufw allow 443
+          cd /var/www/html
+          rm -rf *
+          rsync -avz --exclude='.git' ${{ github.workspace }}/ ./ --delete
+
+    - name: Take server 1 out of maintenance mode
+      run: |
+        sudo ufw allow 80
+        sudo ufw allow 443
 
     - name: Test server 1
       run: |
@@ -50,31 +44,25 @@ jobs:
 
     # Update and test server 2
     - name: Put server 2 in maintenance mode
-      uses: appleboy/ssh-action@master
-      with:
-        host: 108.142.140.219
-        username: student123
-        password: Student12345
-        script: |
-          sudo ufw deny 80
-          sudo ufw deny 443
+      run: |
+        sudo ufw deny 80
+        sudo ufw deny 443
 
     - name: Deploy to server 2
-      uses: appleboy/rsync-action@master
-      with:
-        args: -avz --delete --exclude='.git'
-        src: ./
-        dest: student123@108.142.140.219:/var/www/html/
-
-    - name: Take server 2 out of maintenance mode
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v1.6.2
       with:
         host: 108.142.140.219
         username: student123
-        password: Student12345
+        password: ${{ secrets.SERVER_PASSWORD }}
         script: |
-          sudo ufw allow 80
-          sudo ufw allow 443
+          cd /var/www/html
+          rm -rf *
+          rsync -avz --exclude='.git' ${{ github.workspace }}/ ./ --delete
+
+    - name: Take server 2 out of maintenance mode
+      run: |
+        sudo ufw allow 80
+        sudo ufw allow 443
 
     - name: Test server 2
       run: |

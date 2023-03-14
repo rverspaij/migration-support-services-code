@@ -12,6 +12,25 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Take server 2 out of maintenance mode
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: 108.142.140.219
+        username: student123
+        password: Student12345
+        script: |
+          sudo ufw allow 80
+          sudo ufw allow 433
+          sudo ufw status
+
+    - name: Test server 2
+      run: |
+        response=$(curl -I 108.142.140.219 | head -n 1 | cut -d$' ' -f2)
+        if [[ $response -ne 200 ]]; then
+          echo "Error: Server 2 returned status code $response"
+          exit 1
+        fi
+
     # Update and test server 1
     - name: Put server 1 in maintenance mode
       uses: appleboy/ssh-action@v0.1.8
@@ -80,22 +99,3 @@ jobs:
           git clone https://${{secrets.PAT}}@github.com/HerrForehead/migration-support-services-code.git
           mv /var/www/html/migration-support-services-code/* /var/www/html/
           rm -rf ./migration-support-services-code/
-
-    - name: Take server 2 out of maintenance mode
-      uses: appleboy/ssh-action@v0.1.8
-      with:
-        host: 108.142.140.219
-        username: student123
-        password: Student12345
-        script: |
-          sudo ufw allow 80
-          sudo ufw allow 433
-          sudo ufw status
-
-    - name: Test server 2
-      run: |
-        response=$(curl -I 108.142.140.219 | head -n 1 | cut -d$' ' -f2)
-        if [[ $response -ne 200 ]]; then
-          echo "Error: Server 2 returned status code $response"
-          exit 1
-        fi

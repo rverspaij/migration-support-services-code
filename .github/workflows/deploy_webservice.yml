@@ -19,7 +19,7 @@ jobs:
         sudo ufw deny 443
 
     - name: Deploy to server 1
-      uses: appleboy/ssh-action@v1.6.2
+      uses: appleboy/ssh-action@v0.1.8
       with:
         host: 20.16.27.115
         username: student
@@ -49,7 +49,7 @@ jobs:
         sudo ufw deny 443
 
     - name: Deploy to server 2
-      uses: appleboy/ssh-action@v1.6.2
+      uses: appleboy/ssh-action@v0.1.8
       with:
         host: 108.142.140.219
         username: student123

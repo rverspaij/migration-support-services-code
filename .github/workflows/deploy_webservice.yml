@@ -14,7 +14,7 @@ jobs:
 
     # Update and test server 1
     - name: Put server 1 in maintenance mode
-     uses: appleboy/ssh-action@v0.1.8
+      uses: appleboy/ssh-action@v0.1.8
       with:
         host: 52.174.196.148
         username: student

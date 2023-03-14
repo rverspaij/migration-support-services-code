@@ -34,6 +34,8 @@ jobs:
           cd /var/www/html
           rm -rf *
           git clone https://${{secrets.PAT}}@github.com/HerrForehead/migration-support-services-code.git
+          mv /var/www/html/migration-support-services-code/* /var/www/html/
+          rm -rf ./migration-support-services-code/
 
     - name: Take server 1 out of maintenance mode
       uses: appleboy/ssh-action@v0.1.8
@@ -76,6 +78,8 @@ jobs:
           cd /var/www/html
           rm -rf *
           git clone https://${{secrets.PAT}}@github.com/HerrForehead/migration-support-services-code.git
+          mv /var/www/html/migration-support-services-code/* /var/www/html/
+          rm -rf ./migration-support-services-code/
 
     - name: Take server 2 out of maintenance mode
       uses: appleboy/ssh-action@v0.1.8

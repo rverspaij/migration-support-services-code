@@ -20,7 +20,7 @@ jobs:
         password: Student12345
         script: |
           sudo ufw allow 80
-          sudo ufw allow 433
+          sudo ufw allow 443
           sudo ufw status
 
     - name: Test server 2
@@ -35,18 +35,18 @@ jobs:
     - name: Put server 1 in maintenance mode
       uses: appleboy/ssh-action@v0.1.8
       with:
-        host: 20.61.195.76
+        host: 20.16.198.251
         username: student
         password: student12345!
         script: |
           sudo ufw deny 80
-          sudo ufw deny 433
+          sudo ufw deny 443
           sudo ufw status
 
     - name: Deploy to server 1
       uses: appleboy/ssh-action@v0.1.8
       with:
-        host: 20.61.195.76
+        host: 20.16.198.251
         username: student
         password: student12345!
         script: |
@@ -59,17 +59,17 @@ jobs:
     - name: Take server 1 out of maintenance mode
       uses: appleboy/ssh-action@v0.1.8
       with:
-        host: 20.61.195.76
+        host: 20.16.198.251
         username: student
         password: student12345!
         script: |
           sudo ufw allow 80
-          sudo ufw allow 433
+          sudo ufw allow 443
           sudo ufw status
 
     - name: Test server 1
       run: |
-        response=$(curl -I 20.61.195.76 | head -n 1 | cut -d$' ' -f2)
+        response=$(curl -I 20.16.198.251 | head -n 1 | cut -d$' ' -f2)
         if [[ $response -ne 200 ]]; then
           echo "Error: Server 1 returned status code $response"
           exit 1
@@ -84,7 +84,7 @@ jobs:
         password: Student12345
         script: |
           sudo ufw deny 80
-          sudo ufw deny 433
+          sudo ufw deny 443
           sudo ufw status
 
     - name: Deploy to server 2

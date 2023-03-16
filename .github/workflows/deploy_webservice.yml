@@ -74,27 +74,6 @@ jobs:
           echo "Error: Server 1 returned status code $response"
           exit 1
         fi
-  
-  approval:
-    runs on: ubuntu-latest
-    steps:
-    - name: Request Approval
-      uses: trilom/file-request-actions@v1
-      with:
-        path: 'approval'
-        message: 'Please approve to deploy website to server 2.'
-        title: 'Deployment approval needed.'
-    - name: Wait for approval
-      uses: technote-space/wait-action@v1
-      with:
-        time: '30m'
-
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
 
     # Update and test server 2
     - name: Put server 2 in maintenance mode

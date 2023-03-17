@@ -16,9 +16,9 @@ jobs:
     - name: Take server 2 out of maintenance mode
       uses: appleboy/ssh-action@v0.1.8
       with:
-        host: 20.229.223.152
-        username: student123
-        password: Student12345
+        host: ${{ secrets.VM2_ HOST }}
+        username: ${{ secrets.VM2_ USERNAME }}
+        password: ${{ secrets.VM2_ PASSWORD }}
         script: |
           sudo ufw allow 80
           sudo ufw allow 443
@@ -26,7 +26,7 @@ jobs:
 
     - name: Test server 2
       run: |
-        response=$(curl -I 20.229.223.152 | head -n 1 | cut -d$' ' -f2)
+        response=$(curl -I ${{ secrets.VM2_ HOST }} | head -n 1 | cut -d$' ' -f2)
         if [[ $response -ne 200 ]]; then
           echo "Error: Server 2 returned status code $response"
           exit 1
@@ -36,9 +36,9 @@ jobs:
     - name: Put server 1 in maintenance mode
       uses: appleboy/ssh-action@v0.1.8
       with:
-        host: 20.16.198.251
-        username: student
-        password: student12345!
+        host: ${{ secrets.VM1_HOST  }}
+        username: ${{ secrets.VM1_USERNAME  }}
+        password: ${{ secrets.VM1_PASSWORD  }}
         script: |
           sudo ufw deny 80
           sudo ufw deny 443
@@ -47,9 +47,9 @@ jobs:
     - name: Deploy to server 1
       uses: appleboy/ssh-action@v0.1.8
       with:
-        host: 20.16.198.251
-        username: student
-        password: student12345!
+        host: ${{ secrets.VM1_HOST  }}
+        username: ${{ secrets.VM1_USERNAME  }}
+        password: ${{ secrets.VM1_PASSWORD  }}
         script: |
           cd /var/www/html
           rm -rf *
@@ -60,9 +60,9 @@ jobs:
     - name: Take server 1 out of maintenance mode
       uses: appleboy/ssh-action@v0.1.8
       with:
-        host: 20.16.198.251
-        username: student
-        password: student12345!
+        host: ${{ secrets.VM1_HOST  }}
+        username: ${{ secrets.VM1_USERNAME  }}
+        password: ${{ secrets.VM1_PASSWORD  }}
         script: |
           sudo ufw allow 80
           sudo ufw allow 443
@@ -70,7 +70,7 @@ jobs:
 
     - name: Test server 1
       run: |
-        response=$(curl -I 20.16.198.251 | head -n 1 | cut -d$' ' -f2)
+        response=$(curl -I ${{ secrets.VM1_HOST  }} | head -n 1 | cut -d$' ' -f2)
         if [[ $response -ne 200 ]]; then
           echo "Error: Server 1 returned status code $response"
           exit 1
@@ -87,9 +87,9 @@ jobs:
     - name: Put server 2 in maintenance mode
       uses: appleboy/ssh-action@v0.1.8
       with:
-        host: 20.229.223.152
-        username: student123
-        password: Student12345
+        host: ${{ secrets.VM2_ HOST }}
+        username: ${{ secrets.VM2_USERNAME  }}123
+        password: ${{ secrets.VM2_ PASSWORD }}
         script: |
           sudo ufw deny 80
           sudo ufw deny 443
@@ -98,9 +98,9 @@ jobs:
     - name: Deploy to server 2
       uses: appleboy/ssh-action@v0.1.8
       with:
-        host: 20.229.223.152
-        username: student123
-        password: Student12345
+        host: ${{ secrets.VM2_ HOST }}
+        username: ${{ secrets.VM2_USERNAME  }}123
+        password: ${{ secrets.VM2_ PASSWORD }}
         script: |
           cd /var/www/html
           rm -rf *

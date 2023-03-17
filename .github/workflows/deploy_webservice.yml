@@ -16,7 +16,7 @@ jobs:
     - name: Take server 2 out of maintenance mode
       uses: appleboy/ssh-action@v0.1.8
       with:
-        host: ${{ secrets.VM2_ HOST }}
+        host: ${{ secrets.VM2_HOST }}
         username: ${{ secrets.VM2_USERNAME }}
         password: ${{ secrets.VM2_PASSWORD }}
         script: |

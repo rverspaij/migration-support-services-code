@@ -7,7 +7,7 @@ on:
 jobs:
   deploy-test:
     runs-on: ubuntu-latest
-    environment: 'test'
+    environment: test
 
     steps:
     - name: Checkout code
@@ -78,7 +78,7 @@ jobs:
   
   deploy-prod:
     runs-on: ubuntu-latest
-    envirionment: 'prod'
+    envirionment: prod
     needs: [deploy-test, manual-approval]
 
     steps:

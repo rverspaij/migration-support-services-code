@@ -5,17 +5,13 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-    name: build
+  deploy-test:
     runs-on: ubuntu-latest
+    environment: test
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-  deploy:
-    runs-on: ubuntu-latest
-
-
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: Take server 2 out of maintenance mode
       uses: appleboy/ssh-action@v0.1.8
@@ -79,6 +75,13 @@ jobs:
           echo "Error: Server 1 returned status code $response"
           exit 1
         fi
+  
+  deploy-prod:
+    runs-on: ubuntu-latest
+    envirionment: prod
+    needs: [deploy-test, manual-approval]
+
+    steps:
 
     # Update and test server 2
     - name: Put server 2 in maintenance mode

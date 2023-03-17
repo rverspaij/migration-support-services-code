@@ -87,9 +87,9 @@ jobs:
     - name: Put server 2 in maintenance mode
       uses: appleboy/ssh-action@v0.1.8
       with:
-        host: ${{ secrets.VM2_ HOST }}
+        host: ${{ secrets.VM2_HOST }}
         username: ${{ secrets.VM2_USERNAME  }}123
-        password: ${{ secrets.VM2_ PASSWORD }}
+        password: ${{ secrets.VM2_PASSWORD }}
         script: |
           sudo ufw deny 80
           sudo ufw deny 443
@@ -98,9 +98,9 @@ jobs:
     - name: Deploy to server 2
       uses: appleboy/ssh-action@v0.1.8
       with:
-        host: ${{ secrets.VM2_ HOST }}
+        host: ${{ secrets.VM2_HOST }}
         username: ${{ secrets.VM2_USERNAME  }}123
-        password: ${{ secrets.VM2_ PASSWORD }}
+        password: ${{ secrets.VM2_PASSWORD }}
         script: |
           cd /var/www/html
           rm -rf *

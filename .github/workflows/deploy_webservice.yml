@@ -17,8 +17,8 @@ jobs:
       uses: appleboy/ssh-action@v0.1.8
       with:
         host: ${{ secrets.VM2_ HOST }}
-        username: ${{ secrets.VM2_ USERNAME }}
-        password: ${{ secrets.VM2_ PASSWORD }}
+        username: ${{ secrets.VM2_USERNAME }}
+        password: ${{ secrets.VM2_PASSWORD }}
         script: |
           sudo ufw allow 80
           sudo ufw allow 443
@@ -26,7 +26,7 @@ jobs:
 
     - name: Test server 2
       run: |
-        response=$(curl -I ${{ secrets.VM2_ HOST }} | head -n 1 | cut -d$' ' -f2)
+        response=$(curl -I ${{ secrets.VM2_HOST }} | head -n 1 | cut -d$' ' -f2)
         if [[ $response -ne 200 ]]; then
           echo "Error: Server 2 returned status code $response"
           exit 1

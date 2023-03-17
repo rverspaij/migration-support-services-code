@@ -5,12 +5,17 @@ on:
     branches: [ main ]
 
 jobs:
+  build:
+  name: build
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
   deploy:
     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+
 
     - name: Take server 2 out of maintenance mode
       uses: appleboy/ssh-action@v0.1.8

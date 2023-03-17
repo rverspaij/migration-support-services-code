@@ -88,7 +88,7 @@ jobs:
       uses: appleboy/ssh-action@v0.1.8
       with:
         host: ${{ secrets.VM2_HOST }}
-        username: ${{ secrets.VM2_USERNAME  }}123
+        username: ${{ secrets.VM2_USERNAME  }}
         password: ${{ secrets.VM2_PASSWORD }}
         script: |
           sudo ufw deny 80
@@ -99,7 +99,7 @@ jobs:
       uses: appleboy/ssh-action@v0.1.8
       with:
         host: ${{ secrets.VM2_HOST }}
-        username: ${{ secrets.VM2_USERNAME  }}123
+        username: ${{ secrets.VM2_USERNAME  }}
         password: ${{ secrets.VM2_PASSWORD }}
         script: |
           cd /var/www/html

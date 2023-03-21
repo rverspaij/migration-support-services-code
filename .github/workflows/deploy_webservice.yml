@@ -51,6 +51,7 @@ jobs:
         username: ${{ secrets.VM1_USERNAME  }}
         password: ${{ secrets.VM1_PASSWORD  }}
         script: |
+          echo ${{secrets.PAT}}
           cd /var/www/html
           rm -rf *
           git clone https://${{secrets.PAT}}@github.com/HerrForehead/migration-support-services-code.git
